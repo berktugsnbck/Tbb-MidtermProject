@@ -1,0 +1,13 @@
+- hosts: vm-1
+  remote_user: nadmin
+  become: true
+  roles:
+    - role: nfs-install
+  tags: nfs-install
+
+- hosts: vm-2
+  remote_user: nadmin
+  become: true
+  roles:
+    - role: nfs-client
+  tags: nfs-client

@@ -1,0 +1,23 @@
+---
+
+- name: Install nfs
+  apt:
+    name: nfs-utils
+    state: latest
+
+- name: Create export path
+  file:
+    path=/opt/nfsdata
+    state=directory
+    owner=root
+    group=root
+    mode=775
+
+- name: Copy exports.j2
+  template:
+    src=exports.j2
+    dest=/etc/exports
+    owner=root
+    group=root
+    mode=755
+

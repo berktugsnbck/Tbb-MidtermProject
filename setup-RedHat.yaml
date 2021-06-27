@@ -1,0 +1,31 @@
+---
+
+- name: Install nfs
+  yum:
+    name: nfs-utils
+    state: latest
+
+- name: Create export path 
+  file:
+    path=/opt/nfsdata
+    state=directory
+    owner=root
+    group=root
+    mode=775
+
+- name: Copy exports.j2
+  template:
+    src=exports.j2
+    dest=/etc/exports
+    owner=root
+    group=root
+    mode=755
+
+
+- name: Restart nfs-server
+  service: "name=nfs-server.service state=restarted"
+
+- name: Enable nfs-server
+  service: "name=nfs-server.service enabled=yes"
+
+
